@@ -1,3 +1,56 @@
 import comidas.*
 import comensales.*
 import cocina.*
+
+test "testComidas"{
+	
+	
+	const hamburguesaCarne = new HamburguesaDeCarne(pan = panCasero)
+	assert.equals(80, hamburguesaCarne.valoracion())
+	
+	const hamburguesaVeggie = new HamburguesaVegetariana(legumbre = "garbanzos", pan = panDeMasaMadre)
+	assert.equals(122, hamburguesaVeggie.valoracion())
+	
+	const provoleta = new Provoleta(tieneEspecias = true, peso = 190)
+	assert.that(provoleta.esEspecial())
+	
+	const asado = new CortesDeCarne(nombre = "Asado", calidad = 10, peso = 250)
+	const entrania = new CortesDeCarne(nombre = "Entraña", calidad = 7, peso = 200)
+	const chorizo = new CortesDeCarne(nombre = "Chorizo", calidad = 8, peso = 50)
+	const parrillada = new Parrillada()
+	parrillada.agregarAParrillada(asado)
+	parrillada.agregarAParrillada(entrania)
+	parrillada.agregarAParrillada(chorizo)
+	
+	assert.equals(147, parrillada.valoracion())	
+}
+
+test "comensales" {
+	const vegetariano = new Vegetariano()
+	vegetariano.peso(68500)
+	const provoleta = new Provoleta(tieneEspecias = true, peso = 190)
+	const hamburguesaVeggie1= new HamburguesaVegetariana(legumbre = "garbanzos", pan = panDeMasaMadre)
+	const hamburguesaVeggie2 = new HamburguesaVegetariana(legumbre = "garbanzos", pan = panDeMasaMadre)
+	vegetariano.comer(provoleta)
+	vegetariano.comer(hamburguesaVeggie1)
+	vegetariano.comer(hamburguesaVeggie2)
+	assert.that(vegetariano.satisfecho())
+	
+	const comensalPopular = new HambrePopular()
+	comensalPopular.peso(85000)
+	const asado = new CortesDeCarne(nombre = "Asado", calidad = 10, peso = 250)
+	const entrania = new CortesDeCarne(nombre = "Entraña", calidad = 7, peso = 200)
+	const chorizo = new CortesDeCarne(nombre = "Chorizo", calidad = 8, peso = 50)
+	const parrillada = new Parrillada()
+	parrillada.agregarAParrillada(asado)
+	parrillada.agregarAParrillada(entrania)
+	parrillada.agregarAParrillada(chorizo)
+	comensalPopular.comer(parrillada)
+	assert.notThat(comensalPopular.satisfecho())
+	
+	const comensalFino = new PaladarFino()
+	const hamburguesaCarne = new HamburguesaDeCarne(pan = panDeMasaMadre)
+	const hamburguesaCarne2 = new HamburguesaDeCarne(pan = panCasero)
+	assert.that(comensalFino.leAgrada(hamburguesaCarne))
+	assert.notThat(comensalFino.leAgrada(hamburguesaCarne2))	
+}
