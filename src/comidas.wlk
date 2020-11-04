@@ -1,7 +1,5 @@
 class Comida {
 	
-	var property valoracion = 0
-	
 	method peso()
 	method valoracion()
 	method esAptoVegetariano()	
